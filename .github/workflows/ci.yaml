@@ -41,5 +41,5 @@ jobs:
       run: mvn clean package
     - name: Publish to Github Packages Apache Maven
       run: mvn deploy
-#      env:
-#        reg
+      env:
+        ARTIFACTORY_HOST: ${{ secrets.ARTIFACTORY_HOST }}
