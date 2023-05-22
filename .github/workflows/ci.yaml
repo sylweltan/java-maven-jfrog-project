@@ -43,3 +43,6 @@ jobs:
       run: mvn deploy
       env:
         ARTIFACTORY_HOST: ${{ secrets.ARTIFACTORY_HOST }}
+    - name: Custom Cleanup
+      run: |
+        echo "No i nie podobasz mi się"
