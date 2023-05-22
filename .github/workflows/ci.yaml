@@ -20,7 +20,7 @@ jobs:
         distribution: 'temurin'
         # server-id: github
         # settings-path: ${{ github.workspace }}
-        server-id: release
+        server-id: central
         # server-username: ${{ secrets.ARTIFACTORY_USERNAME }}
         # server-password: ${{ secrets.ARTIFACTORY_TOKEN }}
         server-username: ARTIFACTORY_USERNAME
