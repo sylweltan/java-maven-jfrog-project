@@ -18,14 +18,17 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        server-id: github
-        settings-path: ${{ github.workspace }}
-    - name: Setup Artifactory
-      uses: actions/setup-java@v3
-      with:
+        # server-id: github
+        # settings-path: ${{ github.workspace }}
         server-id: snapshots
         server-username: ${{ secrets.ARTIFACTORY_USERNAME }}
         server-password: ${{ secrets.ARTIFACTORY_TOKEN }}
+    # - name: Setup Artifactory
+    #   uses: actions/setup-java@v3
+    #   with:
+    #     server-id: snapshots
+    #     server-username: ${{ secrets.ARTIFACTORY_USERNAME }}
+    #     server-password: ${{ secrets.ARTIFACTORY_TOKEN }}
     - name: Show me your teeth
       run: |
         echo "Hello from Runner"
