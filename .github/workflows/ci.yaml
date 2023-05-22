@@ -21,13 +21,15 @@ jobs:
         # server-id: github
         # settings-path: ${{ github.workspace }}
         server-id: snapshots
-        server-username: ${{ secrets.ARTIFACTORY_USERNAME }}
-        server-password: ${{ secrets.ARTIFACTORY_TOKEN }}
+        # server-username: ${{ secrets.ARTIFACTORY_USERNAME }}
+        # server-password: ${{ secrets.ARTIFACTORY_TOKEN }}
+        server-username: ARTIFACTORY_USERNAME
+        server-password: ARTIFACTORY_TOKEN
     # - name: Setup Artifactory
     #   uses: actions/setup-java@v3
     #   with:
     #     server-id: snapshots
-    #     server-username: ${{ secrets.ARTIFACTORY_USERNAME }}
+    #     server-username: ${{ secrets.ARTIFACTORY_USERNAME
     #     server-password: ${{ secrets.ARTIFACTORY_TOKEN }}
     - name: Show me your teeth
       run: |
