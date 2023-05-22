@@ -46,7 +46,7 @@ jobs:
       env:
         ARTIFACTORY_HOST: ${{ secrets.ARTIFACTORY_HOST }}
         ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
-        ARTIFACTORY_TOKEN: ${{ ARTIFACTORY_TOKEN }}
+        ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
     - name: Custom Cleanup
       run: |
         echo "No i nie podobasz mi się"
