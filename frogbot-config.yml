@@ -1,0 +1,5 @@
+- params:
+    git:
+      repoName: java-maven-jfrog-project
+      branches:
+        - master
