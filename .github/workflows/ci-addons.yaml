@@ -1,0 +1,64 @@
+name: CI addons
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  push:
+    branches: [master]
+  # pull_request:
+  #   branches: [master]
+  repository_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        # server-id: central
+        server-id: snapshots
+        server-username: ARTIFACTORY_USERNAME
+        server-password: ARTIFACTORY_TOKEN
+    - name: Dirty debug
+      run: |
+        echo "Hello from Runner"
+        ls -al
+    - name: Build with Maven
+      run: mvn clean package
+    - name: Publish to JFrog Artifactory
+      run: mvn deploy
+      env:
+        ARTIFACTORY_HOST: ${{ secrets.ARTIFACTORY_HOST }}
+        ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+        ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
+    - name: Jira Login
+      uses: atlassian/gajira-login@v3
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOLEN: ${{ secrets.JIRA_API_TOKEN }}
+    - name: Jira TODO
+      uses: atlassian/gajira-todo@v3
+      with:
+        project: FIX
+        issueType: Task
+        description: Created automatically via GitHub Actions
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB.TOKEN }}
+    - name: Jira Create Issue
+      uses: atlassian/gajira-create@v3
+      id: create
+      with:
+        project: FIX
+        issuetype: Build
+        summary: Build completed for ${{ github.repository }}
+        description: Compare branch
+        fields: '{"customfield_10171": "test"}'
+    - name: Log Jira created issue
+      run: echo "Issue ${{ steps.create.outputs.issue }} was created"
