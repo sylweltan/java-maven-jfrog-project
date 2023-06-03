@@ -37,12 +37,22 @@ jobs:
         ARTIFACTORY_HOST: ${{ secrets.ARTIFACTORY_HOST }}
         ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
         ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
+
     - name: Jira Login
       uses: atlassian/gajira-login@v3
       env:
         JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+    - name: Dirty debug JIRA
+      run: |
+        echo "Dirty debug in action..."
+        echo "Command: ls -al $HOME/.jira.d/config.yml"
+        ls -al $HOME/.jira.d/config.yml
+        echo "Command: cat $HOME/.jira.d/config.yml"
+        cat $HOME/.jira.d/config.yml
+        echo "Command: ls -al $HOME/.jira.d/credentials"
+        ls -al $HOME/.jira.d/credentials
     - name: Jira TODO
       uses: atlassian/gajira-todo@v3
       with:
@@ -59,6 +69,6 @@ jobs:
         issuetype: Build
         summary: Build completed for ${{ github.repository }}
         description: Compare branch
-        fields: '{"customfield_10171": "test"}'
+        # fields: '{"customfield_10171": "test"}'
     - name: Log Jira created issue
       run: echo "Issue ${{ steps.create.outputs.issue }} was created"
