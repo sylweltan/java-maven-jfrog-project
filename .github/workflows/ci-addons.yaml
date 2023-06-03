@@ -60,7 +60,7 @@ jobs:
         issueType: Task
         description: Created automatically via GitHub Actions
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB.TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Jira Create Issue
       uses: atlassian/gajira-create@v3
       id: create
